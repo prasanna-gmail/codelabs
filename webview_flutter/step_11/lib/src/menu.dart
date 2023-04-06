@@ -4,8 +4,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'globals.dart' as globals;
 
 enum _MenuOptions {
+  google,
+  ce6localhost,
+  ce6AWS,
+  ce6QAVPN,
   navigationDelegate,
   userAgent,
   javascriptChannel,
@@ -36,6 +41,22 @@ class _MenuState extends State<Menu> {
           case _MenuOptions.navigationDelegate:
             await widget.controller
                 .loadRequest(Uri.parse('https://youtube.com'));
+            break;
+          case _MenuOptions.ce6AWS:
+            await widget.controller
+                .loadRequest(Uri.parse('https://ce-dev-school.devstudi.com/teachd/index.html'));
+            break;
+          case _MenuOptions.ce6QAVPN:
+            await widget.controller
+                .loadRequest(Uri.parse('http://172.16.52.67/teach/index.html'));
+            break;
+          case _MenuOptions.ce6localhost:
+            await widget.controller
+                .loadRequest(Uri.parse('http://172.18.3.69:4200/index.html'));
+            break;
+          case _MenuOptions.google:
+            await widget.controller
+                .loadRequest(Uri.parse('https://google.com'));
             break;
           case _MenuOptions.userAgent:
             final userAgent = await widget.controller
@@ -80,6 +101,22 @@ req.send();''');
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.navigationDelegate,
           child: Text('Navigate to YouTube'),
+        ),
+        const PopupMenuItem<_MenuOptions>(
+          value: _MenuOptions.ce6AWS,
+          child: Text('Navigate to AWS'),
+        ),
+        const PopupMenuItem<_MenuOptions>(
+          value: _MenuOptions.ce6QAVPN,
+          child: Text('Navigate to QA VPN'),
+        ),
+        const PopupMenuItem<_MenuOptions>(
+          value: _MenuOptions.ce6localhost,
+          child: Text('Navigate to LocalHost'),
+        ),
+        const PopupMenuItem<_MenuOptions>(
+          value: _MenuOptions.google,
+          child: Text('Navigate to Google'),
         ),
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.userAgent,

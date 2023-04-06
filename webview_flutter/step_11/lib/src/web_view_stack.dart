@@ -4,11 +4,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_in_flutter/main.dart';
+
+import 'globals.dart' as globals;
 
 class WebViewStack extends StatefulWidget {
-  const WebViewStack({required this.controller, super.key});
+  const WebViewStack({required this.controller, required this.OnTap, super.key});
 
   final WebViewController controller;
+
+  final Function() OnTap;
 
   @override
   State<WebViewStack> createState() => _WebViewStackState();
@@ -39,8 +44,13 @@ class _WebViewStackState extends State<WebViewStack> {
             });
           },
           onNavigationRequest: (navigation) {
+
+            // here hide the appBar
+
+
             final host = Uri.parse(navigation.url).host;
             if (host.contains('youtube.com')) {
+              widget.OnTap();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
@@ -49,6 +59,14 @@ class _WebViewStackState extends State<WebViewStack> {
                 ),
               );
               return NavigationDecision.prevent;
+            }else{
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Navigating to ',
+                  ),
+                ),
+              );
             }
             return NavigationDecision.navigate;
           },
